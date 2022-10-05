@@ -1,6 +1,6 @@
 {% if inventory_hostname == groups['master'][0] %}
 ---
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: "{{ internal_address }}"
@@ -9,7 +9,7 @@ nodeRegistration:
   kubeletExtraArgs:
     cgroup-driver: systemd
 ---
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 {% if (groups['master'] | length) > 1 %}
 controlPlaneEndpoint: "{{ control_plane_endpoint }}"
@@ -32,7 +32,7 @@ networking:
   serviceSubnet: "{{ service_subnet }}"
 {% else %}
 ---
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
 {% if inventory_hostname in groups['master'] %}
 controlPlane:
