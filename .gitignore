@@ -1,3 +1,10 @@
 .python-version
 .vagrant/
 temp/
+*.swp
+
+# Local .terraform directories
+**/.terraform/*
+# .tfstate files
+*.tfstate
+*.tfstate.*
