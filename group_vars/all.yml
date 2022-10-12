@@ -1,7 +1,10 @@
 kubernetes_version: 1.22.12
 
 cni: "calico"
-control_plane_endpoint: "10.200.0.5:6443"
+#control_plane_endpoint: "{% if groups['master'] | length >= 1 %}{{ floating_ip }}:6443{% else %}{{ hostvars[controller].internal_address }}{% endif %}"
+#kube_vip: yes
+kube_vip_floating_ip: "10.200.0.5"
+control_plane_endpoint: "{% if kube_vip %}{{ kube_vip_floating_ip }}:6443{% else %}{{ hostvars[controller].internal_address }}:6443{% endif %}"
 dns_domain: "cluster.local"
 pod_subnet: "10.200.128.0/17"
 service_subnet: "10.200.16.0/20"

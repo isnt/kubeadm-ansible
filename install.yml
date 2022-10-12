@@ -1,6 +1,7 @@
 - import_playbook: k8s-common.yml
 - import_playbook: k8s-containerd.yml
 - import_playbook: k8s-kube-vip.yml
+  when: kube_vip | bool
 - import_playbook: k8s-kubeadm.yml
 
 - import_playbook: cni-flannel.yml

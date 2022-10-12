@@ -10,13 +10,12 @@
 
 - name: kubeadm join worker
   ansible.builtin.command: >
-    kubeadm join {{ kube_apiserver_address }}
+    kubeadm join {{ control_plane_endpoint }}
       --config /var/lib/kubeadm/config.yaml
   become: true
   register: kubeadm_join_result
   vars:
     controller: "{{ groups['master'][0] }}"
-    kube_apiserver_address: "{% if groups['master'] | length >= 1 %}{{ control_plane_endpoint }}{% else %}{{ hostvars[controller].internal_address }}{% endif %}"
 
 - name: print kubeadm join result
   ansible.builtin.debug:
